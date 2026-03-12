@@ -1,0 +1,40 @@
+// ============================================================
+// engine/Game.ts - Top-level game manager.
+// Owns the World, Scheduler, and all systems.
+// ============================================================
+
+import { World, Scheduler, type EntityId, type System } from './ECS'
+import { droneSystem }      from './systems/droneSystem'
+import { craftingSystem }   from './systems/craftingSystem'
+import { orbitSystem, resourceSystem } from './systems/orbitSystem'
+import { navigationSystem, movementSystem } from './systems/navigationSystem'
+import { createPlayerControlSystem, type InputState } from './systems/playerControlSystem'
+import { Renderer }         from '../rendering/renderer'
+import { generateUniverse, type StarSystemData, type CelestialBody } from '../generation/universeGenerator'
+import {
+  mkPosition,
+  mkRenderable,
+  mkResourceDeposit,
+  mkSystemMember,
+  mkHealth,
+  mkVelocity,
+  mkRotation,
+  mkNavigation,
+  mkInventory,
+  mkActionState,
+  COMPONENT_TYPES,
+  type PositionComponent,
+  type SystemMemberComponent,
+  type DroneComponent,
+  type InventoryComponent,
+  type StationComponent,
+  type ActionStateComponent,
+  type CraftingComponent,
+  type ResourceDepositComponent,
+  type RenderableComponent,
+} from './components/index'
+import { mkMineTask, mkReturnHomeTask, mkIdleTask } from '../tasks/taskTypes'
+import { getRecipe } from '../data/recipes'
+
+// Make sure task handlers are registered
+import '../tasks/taskHandlers'
